@@ -1,5 +1,5 @@
 /*
- *      IW5cine
+ *      IW5Cine
  *      Commands handler
  */
 
@@ -75,6 +75,8 @@ createCommand( command, desc, usage, callback, use_prefix )
                 if ( args[0] == "help" ) 
                 {
                     iPrintLn( "Usage: " + prefix + command + usage );
+                    scripts\utils::waitframe();
+                    setDvar( prefix + command, desc );
                     return;
                 }
                 if ( args.size >= 1 )
@@ -91,6 +93,8 @@ createCommand( command, desc, usage, callback, use_prefix )
                 if ( args[0] == "help" ) 
                 {
                     iPrintLn( "Usage: " + command + " " + usage );
+                    scripts\utils::waitframe();
+                    setDvar( command, desc );
                     return;
                 }
                 if ( args.size >= 1 )

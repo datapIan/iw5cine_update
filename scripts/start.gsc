@@ -1,14 +1,14 @@
 /*
- * 		IW5cine
+ * 		IW5Cine
  *		Entry point
  */
 
 init()
 {
     defaults::load_defaults();
-    //precache::common_precache();
-    //precache::custom_precache();
-    //precache::fx_precache();
+    precache::common_precache();
+    precache::custom_precache();
+    precache::fx_precache();
 
     level.actors = [];
     level thread waitForHost();

@@ -1,5 +1,5 @@
 /*
- *      IW5cine
+ *      IW5Cine
  *      Default settings - "The poor man's GSH"
  */
 

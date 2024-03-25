@@ -9,6 +9,9 @@
 waitsec()
 { wait 1; }
 
+waitframe()
+{ wait 0.1; }
+
 skipframe()
 { waittillframeend; }
 
@@ -165,9 +168,9 @@ hud_tweaks()
     setDvar("scr_gameEnded",        !level.VISUAL_HUD);
 
     maps\mp\_utility::setObjectiveText(game["attackers"], "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive");
-    maps\mp\_utility::setObjectiveHintText(game["attackers"], "" );
+    maps\mp\_utility::setObjectiveHintText(game["attackers"], "Sass' Cinematic Mod" );
 	maps\mp\_utility::setObjectiveText(game["defenders"], "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive");
-    maps\mp\_utility::setObjectiveHintText(game["defenders"], "" );
+    maps\mp\_utility::setObjectiveHintText(game["defenders"], "Sass' Cinematic Mod" );
 
     game["strings"]["change_class"] = " ";
 }
@@ -268,8 +271,7 @@ select_ents( ent, name, player )
 {
     if ( isSubStr( ent.name, name ) || isSubStr( ent["name"], name )  || 
        ( name == "look" && inside_fov( player, ent["hitbox"], 10 ) )  || 
-       ( name == "look" && inside_fov( player, ent, 10 ) )            || 
-         name == "all" ) 
+       ( name == "look" && inside_fov( player, ent, 10 ) ) ) 
         return true;
     return false;
 }

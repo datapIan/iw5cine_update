@@ -1,5 +1,5 @@
 /*
- *      IW5cine
+ *      IW5Cine
  *      Bots functions
  */
 
@@ -72,12 +72,12 @@ spawnme( owner, weapon, team, camo )
 move( args )
 {
     name = args[0];
+    player = name;
     foreach( player in level.players )
     {
-        if ( select_ents( player, name, self ) ) {
+        if (isSubStr(player.name, getDvar("mvm_bot_move")))
             player setOrigin( at_crosshair( self ) );
             player save_spawn();
-        }
     }
 }
 
@@ -86,7 +86,7 @@ aim( args )
     name = args[0];
     foreach( player in level.players )
     {
-        if ( select_ents( player, name, self ) ) 
+        if (isSubStr(player.name, getDvar("mvm_bot_aim")))
         {
             player thread doaim();
             wait 0.5;
@@ -100,7 +100,7 @@ stare( args )
     name = args[0];
     foreach( player in level.players )
     {
-        if ( select_ents( player, name, self ) ) 
+        if (isSubStr(player.name, getDvar("mvm_bot_stare")))
         {
             player.pers["isStaring"] ^= 1;
             if ( player.pers["isStaring"] ) player thread doaim();
@@ -111,13 +111,14 @@ stare( args )
 
 model( args )
 {
+    argumentstring = getDvar("mvm_bot_model");
+	args = StrTok(argumentstring, " ,");
     name  = args[0];
     model = args[1];
     team  = args[2];
     foreach( player in level.players )
     {
-        if ( select_ents( player, name, self ) ) 
-        {
+        if (isSubStr(player.name, args[0])) {
             player.pers["fakeTeam"]  = team;
             player.pers["fakeModel"] = model;
 
@@ -164,18 +165,27 @@ killBot( args )
     mode = args[1];
     foreach( player in level.players )
     {
-        if ( select_ents( player, name, self ) )
-        {
+        if (isSubStr(player.name, args[0])) {
             parameters  = strTok( level.killparams[mode], ":" );
             fx          = parameters[0];
             tag         = player getTagOrigin( parameters[1] );
             hitloc      = parameters[2];
+            //if (isSubStr(self, args[0]))
+            //    self thread [[level.callbackPlayerDamage]]( self, self.name , player.health, 8, "MOD_SUICIDE", self getCurrentWeapon(), tag, tag, hitloc, 0 );
 
-            playFXOnTag( getFX( fx ), self, tag );
-            player thread [[level.callbackPlayerDamage]]( player, player, player.health, 8, "MOD_SUICIDE", self getCurrentWeapon(), tag, tag, hitloc, 0 );
-            
+            player thread [[level.callbackPlayerDamage]]( player, self , player.health, 8, "MOD_SUICIDE", self getCurrentWeapon(), tag, tag, hitloc, 0 );
+                                                                // ^^ - can be changed to player.name for true suicide -- (no "watching killcam" ) 
         }
     }
+}
+
+create_kill_params()
+{
+    level.killparams             = [];
+    level.killparams["body"]     = "flesh_body:j_spine4:body";
+    level.killparams["head"]     = "flesh_head:j_head:head";
+    level.killparams["shotgun"]  = "flesh_body:j_knee_ri:body"; // REDO ME!!
+    level.killparams["cash"]     = "money:j_spine4:body";
 }
 
 // This absolutely sucks redo me
@@ -206,15 +216,6 @@ attach_weapons( loadout )
         for ( i = 0; i < hidetags.size; i++ )
             self HidePart( hidetags[i], self.replica );
     }
-}
-
-create_kill_params()
-{
-    level.killparams             = [];
-    level.killparams["body"]     = "flesh_body:j_spine4:body";
-    level.killparams["head"]     = "flesh_head:j_head:head";
-    level.killparams["shotgun"]  = "flesh_body:j_knee_ri:body"; // REDO ME!!
-    level.killparams["cash"]     = "money:j_spine4:body";
 }
 
 give_loadout_on_spawn( loadout )

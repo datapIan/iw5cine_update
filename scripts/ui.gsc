@@ -1,5 +1,5 @@
 /*
- *      IW5cine
+ *      IW5Cine
  *      .menu callbacks
  *
  *      Will be worked on once the rest is finished wink wink
