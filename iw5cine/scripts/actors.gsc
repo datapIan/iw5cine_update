@@ -3,7 +3,7 @@
  *      Actors functions
  */
 
-//#include precache;
+#include precache;
 #include scripts\utils;
 #include scripts\misc;
 #include maps\mp\_utility;
