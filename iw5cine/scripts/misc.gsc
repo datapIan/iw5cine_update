@@ -2,7 +2,7 @@
  *      IW5Cine
  *      Miscellaneous functions
  */
-
+#include maps\mp\_art;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include scripts\utils;
@@ -71,7 +71,7 @@ give( args )
         skipframe();
 
         self giveWeapon( weapon, camo_int( camo ), is_akimbo( weapon ) );
-
+        waitframe();
         self switchToWeapon( weapon );
     }
     else pront( "[" + level.HIGHLIGHT_COLOR + "IW5Cine^7] wtf is a '" + weapon  + "'??");
@@ -165,7 +165,7 @@ spawn_model( args )
     if( isDefined( anima ) )
         prop scriptModelPlayAnim(anima);
 
-    pront( "[" + level.HIGHLIGHT_COLOR + "IW5Cine^7] Spawned model " + level.COMMAND_COLOR + model );
+    pront( "[" + level.HIGHLIGHT_COLOR + "IW5Cine^7] Spawned model: " + level.COMMAND_COLOR + model );
 }
 
 spawn_fx( args )
@@ -173,6 +173,7 @@ spawn_fx( args )
     fx = args[0];
     level._effect[fx] = loadfx( fx );
     playFX( level._effect[fx], at_crosshair( self ) );
+    pront( "[" + level.HIGHLIGHT_COLOR + "IW5Cine^7] Spawned fx: " + level.COMMAND_COLOR + fx );
 }
 
 // Fog and Vision
@@ -180,7 +181,7 @@ change_vision( args )
 {
     vision = args[0];
     self VisionSetNakedForPlayer( vision );
-    pront("[" + level.HIGHLIGHT_COLOR + "IW5Cine^7] Vision changed to : " + vision);
+    pront("[" + level.HIGHLIGHT_COLOR + "IW5Cine^7] Vision changed to: " + vision);
 }
 
 change_fog( args )
@@ -191,7 +192,7 @@ change_fog( args )
     green       = int(args[3]);
     blue        = int(args[4]);
     opacity     = int(args[5]);
-    setExpFog(0, 0, 0, 0, 0, 0);
+    //setExpFog(0, 0, 0, 0, 0, 0);
     waitframe();
     setExpFog(start, end, red, green, blue, opacity );
 }
@@ -224,10 +225,10 @@ about()
 
     text = [];
     text[0] = elem( -50, 0.8, "hudbig",     "^3Sass' Cinematic Mod", 30);
-    text[1] = elem( -33, 1,   "default",    "Ported to MW3 by ^3Forgive", 30 );
-    text[2] = elem( -9,  1.1, "small",      "^3Immensely and forever thankful for :", 20 );
-    text[3] = elem( 7.5, 1.3, "default",    "Sass, Expert, Yoyo1love, Antiga", 15 );
-    text[4] = elem( 170, 0.5, "smallfixed", "Press ^3[{weapnext}]^7 to close", 20 );
+    text[1] = elem( -33, 1,   "normalFont",    "Ported to MW3 by ^3Forgive", 30 );
+    text[2] = elem( -9,  1.1, "smallfont",      "^3Immensely and forever thankful for :", 20 );
+    text[3] = elem( 7.5, 1.3, "normalFont",    "Sass, Expert, Yoyo1love, Antiga", 15 );
+    text[4] = elem( 170, 0.5, "smallfont", "Press ^3[{weapnext}]^7 to close", 20 );
 
     self waittill_any( "weapon_switch_started" ,"weapon_fired", "death");
 

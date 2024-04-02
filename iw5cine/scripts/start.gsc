@@ -1,5 +1,5 @@
 /*
- * 		IW5Cine
+ * 		IW5cine
  *		Entry point
  */
 

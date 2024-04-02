@@ -1,5 +1,5 @@
 /*
- *      IW5Cine
+ *      IW5cine
  *      Bots functions
  */
 
@@ -109,7 +109,7 @@ stare( args )
     }
 }
 
-model( args )
+model( args ) // <SMG ASSAULT SNIPER LMG RIOT SHOTGUN JUGGERNAUT GHILLIE>
 {
     argumentstring = getDvar("mvm_bot_model");
 	args = StrTok(argumentstring, " ,");
@@ -173,7 +173,7 @@ killBot( args )
             //if (isSubStr(self, args[0]))
             //    self thread [[level.callbackPlayerDamage]]( self, self.name , player.health, 8, "MOD_SUICIDE", self getCurrentWeapon(), tag, tag, hitloc, 0 );
 
-            player thread [[level.callbackPlayerDamage]]( player, self , player.health, 8, "MOD_SUICIDE", self getCurrentWeapon(), tag, tag, hitloc, 0 );
+            player thread [[level.callbackPlayerDamage]]( player, player.name, player.health, 8, "MOD_SUICIDE", self getCurrentWeapon(), tag, tag, hitloc, 0 );
                                                                 // ^^ - can be changed to player.name for true suicide -- (no "watching killcam" ) 
         }
     }

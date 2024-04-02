@@ -1,5 +1,5 @@
 /*
- *      IW5Cine
+ *      IW5cine
  *      Actors functions
  */
 
@@ -91,13 +91,13 @@ prepare_gopro()
     level.gopro.linked = 0;
     level.gopro enableLinkTo();
 
-    skipframe();
+    waitframe();
     level.gopro.object = spawn( "script_model", ( 9999, 9999, 9999 ) );
     level.gopro.object setModel( "projectile_rpg7" );
     level.gopro.object.origin = level.gopro.origin;
     level.gopro.object.angles = ( level.gopro.angles - ( 15, 0, 0 ) );
 
-    skipframe();
+    waitframe();
     level.gopro.object linkTo( level.gopro, "tag_origin" );
 }
 
@@ -115,33 +115,37 @@ gopro( args )
     if ( action == "delete" ) {
         level.gopro unlink();
         level.gopro.linked = 0;
-        level.gopro MoveTo( ( 49999, 49999, 49999 ), .1 );
+        level.gopro MoveTo( ( 9999, 9999, 9999 ), .1 );
     }
     else if ( action == "on" ) {
         self CameraLinkTo( level.gopro, "tag_origin" );
         setDvar( "cg_drawGun", 0 );
+        setDvar( "cg_draw2d", 0 );
         self allowSpectateTeam( "freelook", true );
         self.sessionstate = "spectator";
     }
     else if ( action == "off" ) {
         self CameraUnlink();
         setDvar( "cg_drawGun", 1 );
+        setDvar( "cg_draw2d", 1 );
         self allowSpectateTeam( "freelook", false );
         self.sessionstate = "playing";
     }
     else
     {
-        foreach( actor in level.actors )
+        actors = getActor(args[0]);
+        if(isDefined(actors))
         {
-            if ( select_ents( actor, action, self ) ) 
+            foreach( actor in level.actors )
             {
-                if ( level.gopro.linked ) {
+                if ( level.gopro.linked  == 1) 
+                {
                     level.gopro unlink();
                     level.gopro.linked ^= 1;
                 }
                 level.gopro.origin = actor GetTagOrigin( tag );
                 level.gopro.angles = actor GetTagAngles( tag );
-                skipframe();
+                waitframe();
                 level.gopro linkTo( actor, tag, ( int(x), int(y), int(z) ), ( int(roll), int(pitch), int(yaw) ) );
                 level.gopro.linked = 1;
             }
@@ -348,7 +352,34 @@ play_efx( when )
         playFx( level._effect[self["fx"][when].efx], self["body"] GetTagOrigin( self["fx"][when].where ) );
 }
 
-
+getActor( args )
+{
+	if ( args == "all")
+	{
+		return level.actor;
+	}
+	foreach(actor in level.actor)
+	{
+		if( args == "look")
+		{
+			vec = anglestoforward(self getPlayerAngles());
+			entity = BulletTrace( self getTagOrigin("tag_eye"), self getTagOrigin("tag_eye") + (vec[0] * 500, vec[1] * 500, vec[2] * 500), 0, self )[ "entity" ];
+			if(isDefined(entity.model) && entity.name == actor.name)
+			{
+				ret = [];
+				ret[0] = actor;
+				return ret;
+			}
+		}
+		else if ( args == actor.name)
+		{
+			ret = [];
+			ret[0] = actor;
+			return ret;
+		}
+	}
+	return undefined;
+}
 
 // Plan for this is to make a .menu file to display the actor's name, and probably other stuff
 // Finish later
@@ -360,11 +391,15 @@ names()
 
 	for(;;)
 	{
-		vec = anglesToForward( self getPlayerAngles() );
-		entity = BulletTrace( self getTagOrigin("tag_eye"), self getTagOrigin("tag_eye") + (vec[0] * 500, vec[1] * 500, vec[2] * 500), 0, self )[ "entity" ];
-        if( entity.model == "com_plasticcase_enemy" )
-             self setClientDvar( "temp_uiname", entity.name );
-        else self setClientDvar( "temp_uiname", "" );
+		actors = GetActor("look");
+		if( isDefined(actors) && getDvar("ui_showActorNames") == "1")
+		{
+			foreach (actor in actors)
+			{
+				level.actorNameDisplay setText(actor.name);
+			}
+		}
+		else level.actorNameDisplay setText(" ");
 		wait .1;
 	}*/
 }

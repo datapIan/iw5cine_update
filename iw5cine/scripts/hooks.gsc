@@ -1,5 +1,5 @@
 /*
- *      IW5Cine
+ *      IW5cine
  *      Hooks for existing functions
  */
 

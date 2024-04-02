@@ -156,20 +156,20 @@ lod_tweaks()
 {
     if(!level.VISUAL_LOD) return;
 
-    setDvar("r_lodBiasRigid",   "-1000");
-    setDvar("r_lodBiasSkinned", "-1000");
+    setDvar( "r_lodBiasRigid",   "-1000" );
+    setDvar( "r_lodBiasSkinned", "-1000" );
 }
 
 hud_tweaks()
 {
-    setDvar("sv_hostname", "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive");
-    setDvar("g_TeamName_Allies",    "allies");
-    setDvar("g_TeamName_Axis",      "axis");
-    setDvar("scr_gameEnded",        !level.VISUAL_HUD);
+    setDvar( "sv_hostname", "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive" );
+    setDvar( "g_TeamName_Allies",    "allies" );
+    setDvar( "g_TeamName_Axis",      "axis" );
+    setDvar( "scr_gameEnded",        !level.VISUAL_HUD );
 
-    maps\mp\_utility::setObjectiveText(game["attackers"], "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive");
+    maps\mp\_utility::setObjectiveText(game["attackers"], "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive" );
     maps\mp\_utility::setObjectiveHintText(game["attackers"], "Sass' Cinematic Mod" );
-	maps\mp\_utility::setObjectiveText(game["defenders"], "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive");
+	maps\mp\_utility::setObjectiveText(game["defenders"], "^3Sass' Cinematic Mod ^7- Ported to MW3 by ^3Forgive" );
     maps\mp\_utility::setObjectiveHintText(game["defenders"], "Sass' Cinematic Mod" );
 
     game["strings"]["change_class"] = " ";
@@ -177,6 +177,7 @@ hud_tweaks()
 
 match_tweaks()
 {
+    setDvar( "developer_script", 0 );
     if(level.MATCH_UNLIMITED_TIME)
         setDvar( "scr_" + level.gameType + "_timelimit", 0 );
 

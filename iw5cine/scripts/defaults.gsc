@@ -1,5 +1,5 @@
 /*
- *      IW5Cine
+ *      IW5cine
  *      Default settings - "The poor man's GSH"
  */
 
@@ -11,7 +11,7 @@ load_defaults()
 
     level.MATCH_UNLIMITED_TIME      = true;     // [true/false] - Unlimited time
     level.MATCH_UNLIMITED_SCORE     = true;     // [true/false] - Unlimited score
-    level.MATCH_KILL_SCORE          = 5;      // integer - The default score per kill
+    level.MATCH_KILL_SCORE          = 100;      // integer - The default score per kill
     level.MATCH_KILL_BONUS          = false;    // [true/false] - Whether or not to give bonuses (headshot, longshot, etc.) for kills
     level.MATCH_KILL_EVENT          = false;    // [true/false] - Hides the events near the score per kill. Ie: HEADSHOT! TRIPLE KILL!
 
