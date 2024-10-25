@@ -5,10 +5,10 @@
 
 init()
 {
-    defaults::load_defaults();
-    precache::common_precache();
-    precache::custom_precache();
-    precache::fx_precache();
+    scripts\defaults::load_defaults();
+    scripts\precache::common_precache();
+    scripts\precache::custom_precache();
+    scripts\precache::fx_precache();
 
     level.actors = [];
     level thread waitForHost();
@@ -26,7 +26,7 @@ waitForHost()
     scripts\utils::hud_tweaks();
     scripts\utils::score_tweaks();
     scripts\utils::bots_tweaks();
-    scripts\actors::prepare_gopro();
+    level thread scripts\actors::prepare_gopro();
 
     player thread scripts\misc::welcome();
     player thread scripts\ui::await();

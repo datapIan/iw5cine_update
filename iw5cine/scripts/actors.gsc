@@ -3,7 +3,7 @@
  *      Actors functions
  */
 
-#include precache;
+#include scripts\precache;
 #include scripts\utils;
 #include scripts\misc;
 #include maps\mp\_utility;
@@ -132,24 +132,23 @@ gopro( args )
         self.sessionstate = "playing";
     }
     else
-    {
-        actors = getActor(args[0]);
-        if(isDefined(actors))
-        {
-            foreach( actor in level.actors )
-            {
-                if ( level.gopro.linked  == 1) 
-                {
-                    level.gopro unlink();
-                    level.gopro.linked ^= 1;
-                }
-                level.gopro.origin = actor GetTagOrigin( tag );
-                level.gopro.angles = actor GetTagAngles( tag );
-                waitframe();
-                level.gopro linkTo( actor, tag, ( int(x), int(y), int(z) ), ( int(roll), int(pitch), int(yaw) ) );
-                level.gopro.linked = 1;
-            }
-        }
+	{
+		foreach( actor in level.actor )
+		{
+			if ( actor.name == args[0] )
+			{
+				if ( level.gopro.linked == 1 )
+				{
+					level.gopro unlink();
+					level.gopro.linked = 0;
+				}
+				level.gopro.origin = actor GetTagOrigin( tag );
+				level.gopro.angles = actor GetTagAngles( tag );
+				wait 0.05;
+				level.gopro linkTo( actor, tag, (int(x), int(y), int(z)), (int(roll), int(pitch), int(yaw)));
+				level.gopro.linked = 1;
+			}
+		}
     }
 }
 

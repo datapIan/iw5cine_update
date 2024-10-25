@@ -28,6 +28,8 @@ Simply download the mod through [this link](https://github.com/dtpln/iw5cine/rel
 
 Once the mod is downloaded, open the ZIP file and drag the "iw5cine" folder into your `MW3/mods` folder. If the `mods` folder doesn't exist, create it. (*You can also rename the mod if you'd like.*)
 
+Alternatively, you can run `install_iw5cine_pluto.bat` to automatically install the mod to your plutonium directory.
+
 <br/>
 
 ```text
